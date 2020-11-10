@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DesafioConta.Domain\DesafioConta.Domain.csproj" />
+    <ProjectReference Include="..\..\src\services\DesafioConta.Domain\DesafioConta.Domain.csproj" />
   </ItemGroup>
 
 </Project>
