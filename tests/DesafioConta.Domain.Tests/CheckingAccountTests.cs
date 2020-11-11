@@ -1,4 +1,3 @@
-using DesafioConta.Domain.Account;
 using Xunit;
 
 namespace DesafioConta.Tests
@@ -8,7 +7,7 @@ namespace DesafioConta.Tests
         [Fact]
         public void Test1()
         {
-            var account = new CheckingAccount();
+            //var account = new CheckingAccount
         }
     }
 }

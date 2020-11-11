@@ -1,6 +1,6 @@
 ﻿using DesafioConta.Domain.DomainObjects;
 
-namespace DesafioConta.Domain.Account
+namespace DesafioConta.Domain.Accounts
 {
     public abstract class Account : SoftDeleteEntity, IAggregateRoot
     {
@@ -8,9 +8,6 @@ namespace DesafioConta.Domain.Account
 
         public abstract void Deposit(decimal amount);
 
-
-        public abstract void WithDraw();
-
-
+        public abstract void WithDraw(decimal amount);
     }
 }
