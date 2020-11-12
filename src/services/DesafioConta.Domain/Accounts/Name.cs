@@ -1,4 +1,4 @@
-﻿using DesafioConta.Domain.DomainObjects;
+﻿using DesafioConta.Core.DomainObjects;
 
 namespace DesafioConta.Domain.Accounts
 {

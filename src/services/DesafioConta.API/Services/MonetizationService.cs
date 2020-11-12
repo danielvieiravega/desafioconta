@@ -13,7 +13,7 @@ namespace DesafioConta.API.Services
         private readonly ILogger<MonetizationService> _logger;
         private readonly IServiceProvider _serviceProvider;
 
-        private const int MONETIZATION_PERIOD = 30; //Afins de teste, vou deixar 30s ao invés de ser a cada 24 horas
+        private const int MONETIZATION_PERIOD = 30; //A fins de teste, vou deixar 30s ao invés de ser a cada 24 horas
 
         public MonetizationService(ILogger<MonetizationService> logger, IServiceProvider serviceProvider)
         {

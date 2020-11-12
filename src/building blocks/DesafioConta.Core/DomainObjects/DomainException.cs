@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DesafioConta.Domain.DomainObjects
+namespace DesafioConta.Core.DomainObjects
 {
     public class DomainException : Exception
     {

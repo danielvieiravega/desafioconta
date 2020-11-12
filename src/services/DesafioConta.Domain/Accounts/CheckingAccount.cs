@@ -1,4 +1,4 @@
-﻿using DesafioConta.Domain.DomainObjects;
+﻿using DesafioConta.Core.DomainObjects;
 using System;
 using System.Collections.Generic;
 
