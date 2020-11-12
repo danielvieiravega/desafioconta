@@ -8,6 +8,8 @@ namespace DesafioConta.Domain.Accounts
     {
         Task<CheckingAccount> GetById(Guid id);
         Task<CheckingAccount> GetByCpf(Cpf cpf);
+        void Add(CheckingAccount account);
+        void Update(CheckingAccount account);
 
     }
 }

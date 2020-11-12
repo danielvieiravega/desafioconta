@@ -15,6 +15,7 @@ namespace DesafioConta.Domain.Accounts
         public int Agency { get; private set; }
         public int Number { get; private set; }
         public Holder Holder { get; private set; }
+        public DateTime LastMonetization { get; private set; }
 
         private readonly List<OperationsHistory> _operationsHistory;
         public IReadOnlyCollection<OperationsHistory> OperationsHistory => _operationsHistory;
@@ -33,6 +34,7 @@ namespace DesafioConta.Domain.Accounts
             Number = number;
             Holder = holder;
             Balance = 0;
+            LastMonetization = DateTime.Now;
 
             _operationsHistory = new List<OperationsHistory>();
         }
