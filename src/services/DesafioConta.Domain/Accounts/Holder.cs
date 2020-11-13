@@ -8,6 +8,8 @@ namespace DesafioConta.Domain.Accounts
         public Cpf Cpf { get; private set; }
         public Address Address { get; private set; }
 
+        public Email Email { get; private set; }
+
         public Holder(Name name, Cpf cpf, Address address)
         {
             Name = name;

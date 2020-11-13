@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DesafioConta.Domain.Accounts
 {
-    public class CheckingAccount : Account
+    public class CheckingAccount : SoftDeleteEntity, IAggregateRoot
     {
         public const decimal MIN_DEPOSIT_AMOUNT_VALUE = 5;
         public const decimal MAX_DEPOSIT_AMOUNT_VALUE = 100000;
@@ -16,6 +16,8 @@ namespace DesafioConta.Domain.Accounts
         public int Number { get; private set; }
         public Holder Holder { get; private set; }
         public DateTime LastMonetization { get; private set; }
+
+        public decimal Balance { get; protected set; }
 
         private readonly List<OperationsHistory> _operationsHistory;
         public IReadOnlyCollection<OperationsHistory> OperationsHistory => _operationsHistory;
@@ -39,7 +41,7 @@ namespace DesafioConta.Domain.Accounts
             _operationsHistory = new List<OperationsHistory>();
         }
 
-        public override void Deposit(decimal amount)
+        public  void Deposit(decimal amount)
         {
             if (amount < MIN_DEPOSIT_AMOUNT_VALUE)
                 throw new DomainException($"The ammount to be deposited must be greater than {MIN_DEPOSIT_AMOUNT_VALUE}");
@@ -52,7 +54,7 @@ namespace DesafioConta.Domain.Accounts
             SaveOperation(amount, Operation.Deposit);
         }
 
-        public override void WithDraw(decimal amount)
+        public  void WithDraw(decimal amount)
         {
             if (amount < MIN_WITHDRAW_AMOUNT_VALUE)
                 throw new DomainException($"The ammount to be withdrawn must be greater than {MIN_WITHDRAW_AMOUNT_VALUE}");
@@ -69,7 +71,7 @@ namespace DesafioConta.Domain.Accounts
 
         private void SaveOperation(decimal amount, Operation operation)
         {
-            _operationsHistory.Add(new Accounts.OperationsHistory { Amount = amount, DateTime = DateTime.Now, Operation = operation });
+            _operationsHistory.Add(new OperationsHistory(operation, amount));
         }
     }
 }

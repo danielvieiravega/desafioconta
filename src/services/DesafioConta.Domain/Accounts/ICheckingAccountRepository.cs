@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DesafioConta.Domain.Accounts
 {
-    public interface ICheckingAccountRepository : IRepository<Account>
+    public interface ICheckingAccountRepository : IRepository<CheckingAccount>
     {
         Task<CheckingAccount> GetById(Guid id);
         Task<CheckingAccount> GetByCpf(Cpf cpf);

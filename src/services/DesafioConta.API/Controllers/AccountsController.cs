@@ -23,15 +23,6 @@ namespace DesafioConta.API.Controllers
         [HttpPost]
         public IActionResult Post()
         {
-            var number = 1;
-            var name = new Name("Jose", "da Silva");
-            var cpf = new Cpf("03480365078");
-            var address = new Address();
-
-            var holder = new Holder(name, cpf, address);
-
-            var newAccount = new CheckingAccount(number, holder);
-
             return Ok();
         }
     }

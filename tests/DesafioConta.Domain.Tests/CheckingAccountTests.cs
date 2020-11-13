@@ -6,7 +6,7 @@ namespace DesafioConta.Tests
     public class CheckingAccountTests
     {
         [Fact]
-        public void Test1()
+        public void CreateValidUser()
         {
             var number = 1;
             var name = new Name("Daniel", "Vega");
