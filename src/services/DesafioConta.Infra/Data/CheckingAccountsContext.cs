@@ -1,6 +1,7 @@
 ﻿using DesafioConta.Domain.Accounts;
 using DesafioConta.Domain.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace DesafioConta.Infra.Data
     public class CheckingAccountsContext : DbContext, IUnitOfWork
     {
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
-
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<OperationsHistory> OperationsHistory { get; set; }
 
         public CheckingAccountsContext(DbContextOptions<CheckingAccountsContext> options)
@@ -17,11 +18,16 @@ namespace DesafioConta.Infra.Data
         {
         }
 
-        public async Task<bool> Commit()
+        public async Task<bool> CommitAsync()
         {
-            return await base.SaveChangesAsync() > 0;
-        }
 
+            return await base.SaveChangesAsync() > 0;
+
+        }
+        public bool Commit()
+        {
+            return base.SaveChanges() > 0;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

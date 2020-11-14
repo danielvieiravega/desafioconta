@@ -3,7 +3,7 @@ using System;
 
 namespace DesafioConta.Domain.Accounts
 {
-    public class Customer : SoftDeleteEntity
+    public class Customer : SoftDeleteEntity, IAggregateRoot
     {
         public Name Name { get; private set; }
         public Cpf Cpf { get; private set; }

@@ -15,8 +15,8 @@ namespace DesafioConta.Infra.Migrations
                     Agency = table.Column<int>(type: "int", nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false),
                     LastMonetization = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Balance = table.Column<decimal>(type: "decimal", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,22 +77,22 @@ namespace DesafioConta.Infra.Migrations
             migrationBuilder.InsertData(
                 table: "CheckingAccounts",
                 columns: new[] { "Id", "Agency", "Balance", "CreationDate", "LastMonetization", "Number" },
-                values: new object[] { new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"), 1, 0m, new DateTime(2020, 11, 13, 23, 59, 28, 687, DateTimeKind.Local).AddTicks(5110), new DateTime(2020, 11, 13, 23, 59, 28, 688, DateTimeKind.Local).AddTicks(6281), 100 });
+                values: new object[] { new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), 1, 500m, new DateTime(2020, 10, 30, 15, 3, 9, 967, DateTimeKind.Local).AddTicks(4482), new DateTime(2020, 10, 30, 15, 3, 9, 968, DateTimeKind.Local).AddTicks(2095), 1 });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "CheckingAccountId", "CreationDate", "Bairro", "Cep", "Cidade", "Complemento", "Estado", "Logradouro", "Numero", "Cpf", "Email", "FirstName", "LastName" },
-                values: new object[] { new Guid("a8fd86ad-8638-43e9-ac79-b9f9c08945b0"), new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"), new DateTime(2020, 11, 13, 23, 59, 28, 690, DateTimeKind.Local).AddTicks(7689), "Money", "94064340", "Porto Alegre", "Casa", "RS", "Warren Street", "123", "34074230046", "warren@buffet.com", "Warren", "Buffet" });
+                values: new object[] { new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"), new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), new DateTime(2020, 11, 14, 15, 3, 9, 970, DateTimeKind.Local).AddTicks(539), "Money", "94064340", "Porto Alegre", "Casa", "RS", "Warren Street", "123", "34074230046", "warren@buffet.com", "Warren", "Buffet" });
 
             migrationBuilder.InsertData(
                 table: "OperationsHistory",
                 columns: new[] { "Id", "Amount", "CheckingAccountId", "CreationDate", "Operation" },
-                values: new object[] { new Guid("2bcb9462-fa25-431d-8e48-b37887282f14"), 100m, new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"), new DateTime(2020, 11, 6, 23, 59, 28, 689, DateTimeKind.Local).AddTicks(7424), 0 });
+                values: new object[] { new Guid("cb4e2ad7-b88a-497c-b236-0df47d59fe53"), 100m, new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), new DateTime(2020, 11, 7, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(1950), 0 });
 
             migrationBuilder.InsertData(
                 table: "OperationsHistory",
                 columns: new[] { "Id", "Amount", "CheckingAccountId", "CreationDate", "Operation" },
-                values: new object[] { new Guid("92465811-907f-48ba-a4ed-08eb086d1578"), 400m, new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"), new DateTime(2020, 11, 8, 23, 59, 28, 689, DateTimeKind.Local).AddTicks(8477), 0 });
+                values: new object[] { new Guid("783db41b-b903-4dee-8ac7-5dd54eb62c24"), 400m, new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), new DateTime(2020, 11, 9, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(2814), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CheckingAccountId",

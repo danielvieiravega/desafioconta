@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DesafioConta.API.Controllers
+namespace DesafioConta.WebAPI.Core.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller

@@ -9,10 +9,18 @@ namespace DesafioConta.Infra.Data
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var customerId = Guid.NewGuid();
-            var checkingAccount = new CheckingAccount(100);
+            var checkingAccountId = Guid.NewGuid();
 
             modelBuilder.Entity<CheckingAccount>().HasData(
-                checkingAccount
+                new
+                {
+                    Id = checkingAccountId,
+                    Balance = (decimal)500,
+                    Agency = 1,
+                    Number = 1,
+                    CreationDate = DateTime.Now.AddDays(-15),
+                    LastMonetization = DateTime.Now.AddDays(-15)
+                }
                 );
 
 
@@ -20,7 +28,7 @@ namespace DesafioConta.Infra.Data
                 new
                 {
                     Id = Guid.NewGuid(),
-                    CheckingAccountId = checkingAccount.Id,
+                    CheckingAccountId = checkingAccountId,
                     Operation = Operation.Deposit,
                     Amount = (decimal) 100.0,
                     CreationDate = DateTime.Now.AddDays(-7)
@@ -28,7 +36,7 @@ namespace DesafioConta.Infra.Data
                 new
                 {
                     Id = Guid.NewGuid(),
-                    CheckingAccountId = checkingAccount.Id,
+                    CheckingAccountId = checkingAccountId,
                     Operation = Operation.Deposit,
                     Amount = (decimal) 400.0,
                     CreationDate = DateTime.Now.AddDays(-5)
@@ -38,7 +46,7 @@ namespace DesafioConta.Infra.Data
 
             modelBuilder.Entity<Customer>(c =>
             {
-                c.HasData(new { Id = customerId, CheckingAccountId = checkingAccount.Id, CreationDate = DateTime.Now });
+                c.HasData(new { Id = customerId, CheckingAccountId = checkingAccountId, CreationDate = DateTime.Now });
 
                 c.OwnsOne(e => e.Address).HasData(
                     new

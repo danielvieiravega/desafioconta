@@ -10,7 +10,7 @@ namespace DesafioConta.API.Configuration
         {
             services.AddScoped<CheckingAccountsContext>();
             services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
-
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
     }
 }

@@ -4,18 +4,17 @@ using System.Collections.Generic;
 
 namespace DesafioConta.Domain.Accounts
 {
-    public class CheckingAccount : SoftDeleteEntity, IAggregateRoot
+    public class CheckingAccount : Account
     {
-        public const decimal MIN_DEPOSIT_AMOUNT_VALUE = 5;
-        public const decimal MAX_DEPOSIT_AMOUNT_VALUE = 100000;
+        public const decimal MinDepositAmountValue = 5;
+        public const decimal MaxDepositAmountValue = 100000;
 
-        public const decimal MIN_WITHDRAW_AMOUNT_VALUE = 10;
-        public const decimal MAX_WITHDRAW_AMOUNT_VALUE = 100000;
+        public const decimal MinWithDrawAmountValue = 10;
+        public const decimal NaxWithDrawAmountValue = 100000;
 
         public int Agency { get; private set; }
         public int Number { get; private set; }
         public DateTime LastMonetization { get; private set; }
-        public decimal Balance { get; protected set; }
         public Customer Customer { get; private set; }
 
         private readonly List<OperationsHistory> _operationsHistory;
@@ -39,26 +38,26 @@ namespace DesafioConta.Domain.Accounts
             _operationsHistory = new List<OperationsHistory>();
         }
 
-        public  void Deposit(decimal amount)
+        public override void Deposit(decimal amount)
         {
-            if (amount < MIN_DEPOSIT_AMOUNT_VALUE)
-                throw new DomainException($"The ammount to be deposited must be greater than {MIN_DEPOSIT_AMOUNT_VALUE}");
+            if (amount < MinDepositAmountValue)
+                throw new DomainException($"The ammount to be deposited must be greater than {MinDepositAmountValue}");
 
-            if (amount > MAX_DEPOSIT_AMOUNT_VALUE)
-                throw new DomainException($"The ammount to be deposited must be less than {MAX_DEPOSIT_AMOUNT_VALUE}");
+            if (amount > MaxDepositAmountValue)
+                throw new DomainException($"The ammount to be deposited must be less than {MaxDepositAmountValue}");
 
             Balance += amount;
 
             SaveOperation(amount, Operation.Deposit);
         }
 
-        public  void WithDraw(decimal amount)
+        public override void WithDraw(decimal amount)
         {
-            if (amount < MIN_WITHDRAW_AMOUNT_VALUE)
-                throw new DomainException($"The ammount to be withdrawn must be greater than {MIN_WITHDRAW_AMOUNT_VALUE}");
+            if (amount < MinWithDrawAmountValue)
+                throw new DomainException($"The ammount to be withdrawn must be greater than {MinWithDrawAmountValue}");
 
-            if (amount > MAX_WITHDRAW_AMOUNT_VALUE)
-                throw new DomainException($"The ammount to be withdrawn must be less than {MAX_WITHDRAW_AMOUNT_VALUE}");
+            if (amount > NaxWithDrawAmountValue)
+                throw new DomainException($"The ammount to be withdrawn must be less than {NaxWithDrawAmountValue}");
             
             if (Balance >= amount)
             {
@@ -69,7 +68,7 @@ namespace DesafioConta.Domain.Accounts
 
         private void SaveOperation(decimal amount, Operation operation)
         {
-            _operationsHistory.Add(new OperationsHistory(operation, amount));
+            _operationsHistory.Add(new OperationsHistory(operation, amount, Id));
         }
     }
 }

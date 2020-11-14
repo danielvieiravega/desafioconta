@@ -1,5 +1,7 @@
 ﻿using DesafioConta.Domain.Accounts;
+using DesafioConta.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DesafioConta.API.Controllers

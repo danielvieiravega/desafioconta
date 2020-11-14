@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioConta.Infra.Migrations
 {
     [DbContext(typeof(CheckingAccountsContext))]
-    [Migration("20201114025929_Initial")]
+    [Migration("20201114180310_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,12 +51,12 @@ namespace DesafioConta.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"),
+                            Id = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
                             Agency = 1,
-                            Balance = 0m,
-                            CreationDate = new DateTime(2020, 11, 13, 23, 59, 28, 687, DateTimeKind.Local).AddTicks(5110),
-                            LastMonetization = new DateTime(2020, 11, 13, 23, 59, 28, 688, DateTimeKind.Local).AddTicks(6281),
-                            Number = 100
+                            Balance = 500m,
+                            CreationDate = new DateTime(2020, 10, 30, 15, 3, 9, 967, DateTimeKind.Local).AddTicks(4482),
+                            LastMonetization = new DateTime(2020, 10, 30, 15, 3, 9, 968, DateTimeKind.Local).AddTicks(2095),
+                            Number = 1
                         });
                 });
 
@@ -82,9 +82,9 @@ namespace DesafioConta.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a8fd86ad-8638-43e9-ac79-b9f9c08945b0"),
-                            CheckingAccountId = new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"),
-                            CreationDate = new DateTime(2020, 11, 13, 23, 59, 28, 690, DateTimeKind.Local).AddTicks(7689)
+                            Id = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
+                            CheckingAccountId = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
+                            CreationDate = new DateTime(2020, 11, 14, 15, 3, 9, 970, DateTimeKind.Local).AddTicks(539)
                         });
                 });
 
@@ -115,18 +115,18 @@ namespace DesafioConta.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2bcb9462-fa25-431d-8e48-b37887282f14"),
+                            Id = new Guid("cb4e2ad7-b88a-497c-b236-0df47d59fe53"),
                             Amount = 100m,
-                            CheckingAccountId = new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"),
-                            CreationDate = new DateTime(2020, 11, 6, 23, 59, 28, 689, DateTimeKind.Local).AddTicks(7424),
+                            CheckingAccountId = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
+                            CreationDate = new DateTime(2020, 11, 7, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(1950),
                             Operation = 0
                         },
                         new
                         {
-                            Id = new Guid("92465811-907f-48ba-a4ed-08eb086d1578"),
+                            Id = new Guid("783db41b-b903-4dee-8ac7-5dd54eb62c24"),
                             Amount = 400m,
-                            CheckingAccountId = new Guid("63d72d4e-7067-4404-9aa4-684394d9a5cf"),
-                            CreationDate = new DateTime(2020, 11, 8, 23, 59, 28, 689, DateTimeKind.Local).AddTicks(8477),
+                            CheckingAccountId = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
+                            CreationDate = new DateTime(2020, 11, 9, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(2814),
                             Operation = 0
                         });
                 });
@@ -181,7 +181,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("a8fd86ad-8638-43e9-ac79-b9f9c08945b0"),
+                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
                                     Bairro = "Money",
                                     Cep = "94064340",
                                     Cidade = "Porto Alegre",
@@ -213,7 +213,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("a8fd86ad-8638-43e9-ac79-b9f9c08945b0"),
+                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
                                     Number = "34074230046"
                                 });
                         });
@@ -237,7 +237,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("a8fd86ad-8638-43e9-ac79-b9f9c08945b0"),
+                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
                                     Address = "warren@buffet.com"
                                 });
                         });
@@ -265,7 +265,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("a8fd86ad-8638-43e9-ac79-b9f9c08945b0"),
+                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
                                     FirstName = "Warren",
                                     LastName = "Buffet"
                                 });

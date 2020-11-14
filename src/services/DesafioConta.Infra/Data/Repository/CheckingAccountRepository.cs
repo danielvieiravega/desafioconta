@@ -7,6 +7,30 @@ using System.Threading.Tasks;
 
 namespace DesafioConta.Infra.Data
 {
+
+    public class CustomerRepository : ICustomerRepository
+    {
+
+        private readonly CheckingAccountsContext _context;
+
+        public CustomerRepository(CheckingAccountsContext context)
+        {
+            _context = context;
+        }
+
+        public IUnitOfWork UnitOfWork => _context;
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+
+        public async Task<List<Customer>> GetAll()
+        {
+            return await _context.Customers.ToListAsync();
+        }
+    }
+
     public class CheckingAccountRepository : ICheckingAccountRepository
     {
         private readonly CheckingAccountsContext _context;
@@ -30,7 +54,11 @@ namespace DesafioConta.Infra.Data
 
         public async Task<CheckingAccount> GetById(Guid id)
         {
-            return await _context.CheckingAccounts.FirstAsync(a => a.Id == id);
+            return await _context
+                .CheckingAccounts
+                .Include(c => c.Customer)
+                .Include(h => h.OperationsHistory)
+                .FirstAsync(a => a.Id == id);
         }
 
         public void Update(CheckingAccount account)
