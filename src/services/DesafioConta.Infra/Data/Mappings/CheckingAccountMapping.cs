@@ -21,7 +21,7 @@ namespace DesafioConta.Infra.Data.Mappings
                .IsRequired()
                .HasColumnName("Number");
 
-            builder.Property(e => e.Balance).HasColumnType("Money");
+            builder.Property(e => e.Balance).HasColumnType("decimal");
 
             builder.HasMany(c => c.OperationsHistory)
                 .WithOne(c => c.CheckingAccount)

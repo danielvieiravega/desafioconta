@@ -12,9 +12,9 @@ namespace DesafioConta.Infra.Data.Mappings
 
             builder.ToTable("OperationsHistory");
 
-            builder.Property(e => e.DateTime).HasColumnType("datetime");
+            //builder.Property(e => e.DateTime).HasColumnType("datetime");
 
-            builder.Property(e => e.Amount).HasColumnType("Money");
+            builder.Property(e => e.Amount).HasColumnType("decimal");
 
             builder.Property(e => e.Operation).HasColumnType("int");
 

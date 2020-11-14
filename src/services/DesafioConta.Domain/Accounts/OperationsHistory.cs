@@ -6,7 +6,7 @@ namespace DesafioConta.Domain.Accounts
     public class OperationsHistory : SoftDeleteEntity
     {
         public Guid CheckingAccountId { get; private set; }
-        public DateTime DateTime { get; private set; }
+        //public DateTime DateTime { get; private set; }
         public Operation Operation { get; private set; }
         public decimal Amount { get; private set; }
 
@@ -16,7 +16,7 @@ namespace DesafioConta.Domain.Accounts
 
         public OperationsHistory(Operation operation, decimal amount)
         {
-            DateTime = DateTime.Now;
+            //DateTime = DateTime.Now;
             Operation = operation;
             Amount = amount;
         }
