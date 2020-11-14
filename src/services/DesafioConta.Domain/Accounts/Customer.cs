@@ -1,20 +1,28 @@
 ﻿using DesafioConta.Core.DomainObjects;
+using System;
 
 namespace DesafioConta.Domain.Accounts
 {
-    public class Holder : ValueObject
+    public class Customer : SoftDeleteEntity
     {
         public Name Name { get; private set; }
         public Cpf Cpf { get; private set; }
         public Address Address { get; private set; }
-
         public Email Email { get; private set; }
+        public CheckingAccount CheckingAccount { get; private set; }
+        public Guid CheckingAccountId { get; private set; }
 
-        public Holder(Name name, Cpf cpf, Address address)
+        protected Customer()
+        {
+
+        }
+
+        public Customer(Name name, Cpf cpf, Address address, Guid checkingAccountId)
         {
             Name = name;
             Cpf = cpf;
             Address = address;
+            CheckingAccountId = checkingAccountId;
         }
     }
 }

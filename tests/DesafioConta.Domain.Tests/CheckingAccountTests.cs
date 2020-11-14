@@ -1,4 +1,5 @@
 using DesafioConta.Domain.Accounts;
+using System;
 using Xunit;
 
 namespace DesafioConta.Tests
@@ -11,11 +12,12 @@ namespace DesafioConta.Tests
             var number = 1;
             var name = new Name("Daniel", "Vega");
             var cpf = new Cpf("03480365078");
-            var address = new Address();
+            var address = new Address("Warren Street", "123", "Casa", "Money", "94064340", "Porto Alegre", "RS");
 
-            var holder = new Holder(name, cpf, address);
 
-            var newAccount = new CheckingAccount(number, holder);
+            var holder = new Customer(name, cpf, address, Guid.NewGuid());
+
+            var newAccount = new CheckingAccount(number);
         }
     }
 }

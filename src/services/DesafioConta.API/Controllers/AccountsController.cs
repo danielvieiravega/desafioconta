@@ -1,8 +1,10 @@
 ﻿using DesafioConta.Domain.Accounts;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DesafioConta.API.Controllers
 {
+    [Route("api/accounts")]
     public class AccountsController : MainController
     {
         private readonly ICheckingAccountRepository _checkingAccountRepository;
@@ -14,10 +16,10 @@ namespace DesafioConta.API.Controllers
 
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            
-            return Ok();
+            var xuxu = await _checkingAccountRepository.GetAll();
+            return Ok(xuxu);
         }
 
         [HttpPost]

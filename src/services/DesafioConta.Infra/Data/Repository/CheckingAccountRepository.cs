@@ -2,6 +2,7 @@
 using DesafioConta.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DesafioConta.Infra.Data
@@ -24,7 +25,7 @@ namespace DesafioConta.Infra.Data
 
         public async Task<CheckingAccount> GetByCpf(Cpf cpf)
         {
-            return await _context.CheckingAccounts.FirstAsync(a => a.Holder.Cpf == cpf);
+            return await _context.CheckingAccounts.FirstAsync(a => a.Customer.Cpf.Number == cpf.Number);
         }
 
         public async Task<CheckingAccount> GetById(Guid id)
@@ -40,6 +41,11 @@ namespace DesafioConta.Infra.Data
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        public async Task<List<CheckingAccount>> GetAll()
+        {
+            return await _context.CheckingAccounts.ToListAsync();
         }
     }
 }

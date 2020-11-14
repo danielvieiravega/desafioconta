@@ -30,6 +30,8 @@ namespace DesafioConta.Infra.Data
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
+            modelBuilder.Seed();
+
             base.OnModelCreating(modelBuilder);
         }
     }

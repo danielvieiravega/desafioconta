@@ -13,42 +13,6 @@ namespace DesafioConta.Infra.Data.Mappings
 
             builder.ToTable("CheckingAccounts");
 
-            builder.OwnsOne(p => p.Holder, e =>
-            {
-                e.Property(pe => pe.Name.FirstName)
-                   .HasColumnName("FirstName");
-
-                e.Property(pe => pe.Name.LastName)
-                   .HasColumnName("LastName");
-
-                e.Property(pe => pe.Cpf.Number)
-                   .HasColumnName("Cpf");
-
-                e.Property(pe => pe.Email.Address)
-                  .HasColumnName("Email");
-
-                e.Property(pe => pe.Address.Logradouro)
-                    .HasColumnName("Logradouro");
-
-                e.Property(pe => pe.Address.Numero)
-                   .HasColumnName("Numero");
-
-                e.Property(pe => pe.Address.Complemento)
-                    .HasColumnName("Complemento");
-
-                e.Property(pe => pe.Address.Bairro)
-                    .HasColumnName("Bairro");
-
-                e.Property(pe => pe.Address.Cep)
-                    .HasColumnName("Cep");
-
-                e.Property(pe => pe.Address.Cidade)
-                    .HasColumnName("Cidade");
-
-                e.Property(pe => pe.Address.Estado)
-                    .HasColumnName("Estado");
-            });
-
             builder.Property(c => c.Agency)
                .IsRequired()
                .HasColumnName("Agency");
@@ -62,6 +26,10 @@ namespace DesafioConta.Infra.Data.Mappings
             builder.HasMany(c => c.OperationsHistory)
                 .WithOne(c => c.CheckingAccount)
                 .HasForeignKey(c => c.CheckingAccountId);
+
+            //conta -> cliente
+            builder.HasOne(c => c.Customer)
+                .WithOne(c => c.CheckingAccount);
         }
     }
 }
