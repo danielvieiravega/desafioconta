@@ -14,7 +14,6 @@ namespace DesafioConta.API.Controllers
             _checkingAccountRepository = checkingAccountRepository;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {

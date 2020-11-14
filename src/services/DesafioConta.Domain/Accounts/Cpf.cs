@@ -8,16 +8,13 @@ namespace DesafioConta.Domain.Accounts
         public const int CpfMaxLength = 11;
         public string Number { get; private set; }
 
-        //Construtor do EF
-        protected Cpf() { }
-
         public Cpf(string number)
         {
-            if (!Validar(number)) throw new DomainException("CPF inválido");
+            if (!Validate(number)) throw new DomainException("Invalid CPF");
             Number = number;
         }
 
-        public static bool Validar(string cpf)
+        public static bool Validate(string cpf)
         {
             cpf = new string(cpf.Where(char.IsDigit).ToArray());
 

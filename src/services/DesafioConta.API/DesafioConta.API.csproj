@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -18,8 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\DesafioConta.WebAPI.Core\DesafioConta.WebAPI.Core.csproj" />
     <ProjectReference Include="..\DesafioConta.Domain\DesafioConta.Domain.csproj" />
     <ProjectReference Include="..\DesafioConta.Infra\DesafioConta.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\" />
   </ItemGroup>
 
 
