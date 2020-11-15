@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace DesafioConta.API.Controllers
 {
-    public class DepositModel
-    {
-        public decimal Amount { get; set; }
-    }
 
     [Route("api/accounts/{id}/deposits")]
     public class AccountsDepositsController : MainController
@@ -32,9 +28,7 @@ namespace DesafioConta.API.Controllers
 
             account.Deposit(model.Amount);
 
-            //_checkingAccountRepository.Update(account);
-
-            if (_checkingAccountRepository.UnitOfWork.Commit())
+            if (await _checkingAccountRepository.UnitOfWork.CommitAsync())
                 return Ok();
 
             return BadRequest();

@@ -11,10 +11,14 @@ namespace DesafioConta.Infra.Data.Mappings
             builder.OwnsOne(p => p.Name, e =>
             {
                 e.Property(pe => pe.FirstName)
-                   .HasColumnName("FirstName");
+                    .IsRequired()
+                   .HasColumnName("FirstName")
+                   .HasColumnType("varchar(50)");
 
                 e.Property(pe => pe.LastName)
-                   .HasColumnName("LastName");
+                    .IsRequired()
+                   .HasColumnName("LastName")
+                   .HasColumnType("varchar(50)");
             });
 
             builder.OwnsOne(p => p.Cpf, e =>

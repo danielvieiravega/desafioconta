@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DesafioConta.Infra.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,8 +28,8 @@ namespace DesafioConta.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "varchar(50)", nullable: true),
+                    LastName = table.Column<string>(type: "varchar(50)", nullable: true),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     Logradouro = table.Column<string>(type: "varchar(200)", nullable: true),
                     Numero = table.Column<string>(type: "varchar(50)", nullable: true),
@@ -65,7 +65,7 @@ namespace DesafioConta.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OperationsHistory", x => x.Id);
+                    table.PrimaryKey("PK_OperationsHistory", x => new { x.CheckingAccountId, x.Id });
                     table.ForeignKey(
                         name: "FK_OperationsHistory_CheckingAccounts_CheckingAccountId",
                         column: x => x.CheckingAccountId,
@@ -77,33 +77,18 @@ namespace DesafioConta.Infra.Migrations
             migrationBuilder.InsertData(
                 table: "CheckingAccounts",
                 columns: new[] { "Id", "Agency", "Balance", "CreationDate", "LastMonetization", "Number" },
-                values: new object[] { new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), 1, 500m, new DateTime(2020, 10, 30, 15, 3, 9, 967, DateTimeKind.Local).AddTicks(4482), new DateTime(2020, 10, 30, 15, 3, 9, 968, DateTimeKind.Local).AddTicks(2095), 1 });
+                values: new object[] { new Guid("2414f7af-a310-479a-b82f-3d3c1e4741d4"), 1, 0m, new DateTime(2020, 10, 30, 21, 41, 29, 846, DateTimeKind.Local).AddTicks(9819), new DateTime(2020, 10, 30, 21, 41, 29, 848, DateTimeKind.Local).AddTicks(238), 1 });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "CheckingAccountId", "CreationDate", "Bairro", "Cep", "Cidade", "Complemento", "Estado", "Logradouro", "Numero", "Cpf", "Email", "FirstName", "LastName" },
-                values: new object[] { new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"), new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), new DateTime(2020, 11, 14, 15, 3, 9, 970, DateTimeKind.Local).AddTicks(539), "Money", "94064340", "Porto Alegre", "Casa", "RS", "Warren Street", "123", "34074230046", "warren@buffet.com", "Warren", "Buffet" });
-
-            migrationBuilder.InsertData(
-                table: "OperationsHistory",
-                columns: new[] { "Id", "Amount", "CheckingAccountId", "CreationDate", "Operation" },
-                values: new object[] { new Guid("cb4e2ad7-b88a-497c-b236-0df47d59fe53"), 100m, new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), new DateTime(2020, 11, 7, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(1950), 0 });
-
-            migrationBuilder.InsertData(
-                table: "OperationsHistory",
-                columns: new[] { "Id", "Amount", "CheckingAccountId", "CreationDate", "Operation" },
-                values: new object[] { new Guid("783db41b-b903-4dee-8ac7-5dd54eb62c24"), 400m, new Guid("911d8b02-5732-407b-ac42-201305bacfb3"), new DateTime(2020, 11, 9, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(2814), 0 });
+                values: new object[] { new Guid("b17554a5-1434-49df-8e8a-157b8ee96a5b"), new Guid("2414f7af-a310-479a-b82f-3d3c1e4741d4"), new DateTime(2020, 11, 14, 21, 41, 29, 849, DateTimeKind.Local).AddTicks(7406), "Money", "94064340", "Porto Alegre", "Casa", "RS", "Warren Street", "123", "34074230046", "warren@buffet.com", "Warren", "Buffet" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CheckingAccountId",
                 table: "Customers",
                 column: "CheckingAccountId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OperationsHistory_CheckingAccountId",
-                table: "OperationsHistory",
-                column: "CheckingAccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

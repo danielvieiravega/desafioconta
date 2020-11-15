@@ -15,33 +15,34 @@ namespace DesafioConta.Infra.Data
                 new
                 {
                     Id = checkingAccountId,
-                    Balance = (decimal)500,
+                    Balance = (decimal)0,
                     Agency = 1,
                     Number = 1,
                     CreationDate = DateTime.Now.AddDays(-15),
                     LastMonetization = DateTime.Now.AddDays(-15)
+
                 }
                 );
 
 
-            modelBuilder.Entity<OperationsHistory>().HasData(
-                new
-                {
-                    Id = Guid.NewGuid(),
-                    CheckingAccountId = checkingAccountId,
-                    Operation = Operation.Deposit,
-                    Amount = (decimal) 100.0,
-                    CreationDate = DateTime.Now.AddDays(-7)
-                },
-                new
-                {
-                    Id = Guid.NewGuid(),
-                    CheckingAccountId = checkingAccountId,
-                    Operation = Operation.Deposit,
-                    Amount = (decimal) 400.0,
-                    CreationDate = DateTime.Now.AddDays(-5)
-                }
-                );
+            //modelBuilder.Entity<OperationsHistory>().HasData(
+            //    new
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        CheckingAccountId = checkingAccountId,
+            //        Operation = Operation.Deposit,
+            //        Amount = (decimal) 100.0,
+            //        CreationDate = DateTime.Now.AddDays(-7)
+            //    },
+            //    new
+            //    {
+            //        Id = Guid.NewGuid(),
+            //        CheckingAccountId = checkingAccountId,
+            //        Operation = Operation.Deposit,
+            //        Amount = (decimal) 400.0,
+            //        CreationDate = DateTime.Now.AddDays(-5)
+            //    }
+            //    );
 
 
             modelBuilder.Entity<Customer>(c =>

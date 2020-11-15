@@ -18,6 +18,7 @@ namespace DesafioConta.Domain.Accounts
         public Customer Customer { get; private set; }
 
         private readonly List<OperationsHistory> _operationsHistory;
+
         public IReadOnlyCollection<OperationsHistory> OperationsHistory => _operationsHistory;
 
         //construtor do EF
@@ -68,7 +69,7 @@ namespace DesafioConta.Domain.Accounts
 
         private void SaveOperation(decimal amount, Operation operation)
         {
-            _operationsHistory.Add(new OperationsHistory(operation, amount, Id));
+            _operationsHistory.Add(new OperationsHistory(operation, amount/*, Id*/));
         }
     }
 }

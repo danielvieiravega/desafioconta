@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioConta.Infra.Migrations
 {
     [DbContext(typeof(CheckingAccountsContext))]
-    [Migration("20201114180310_Initial")]
-    partial class Initial
+    [Migration("20201115004130_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,11 +51,11 @@ namespace DesafioConta.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
+                            Id = new Guid("2414f7af-a310-479a-b82f-3d3c1e4741d4"),
                             Agency = 1,
-                            Balance = 500m,
-                            CreationDate = new DateTime(2020, 10, 30, 15, 3, 9, 967, DateTimeKind.Local).AddTicks(4482),
-                            LastMonetization = new DateTime(2020, 10, 30, 15, 3, 9, 968, DateTimeKind.Local).AddTicks(2095),
+                            Balance = 0m,
+                            CreationDate = new DateTime(2020, 10, 30, 21, 41, 29, 846, DateTimeKind.Local).AddTicks(9819),
+                            LastMonetization = new DateTime(2020, 10, 30, 21, 41, 29, 848, DateTimeKind.Local).AddTicks(238),
                             Number = 1
                         });
                 });
@@ -82,53 +82,43 @@ namespace DesafioConta.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
-                            CheckingAccountId = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
-                            CreationDate = new DateTime(2020, 11, 14, 15, 3, 9, 970, DateTimeKind.Local).AddTicks(539)
+                            Id = new Guid("b17554a5-1434-49df-8e8a-157b8ee96a5b"),
+                            CheckingAccountId = new Guid("2414f7af-a310-479a-b82f-3d3c1e4741d4"),
+                            CreationDate = new DateTime(2020, 11, 14, 21, 41, 29, 849, DateTimeKind.Local).AddTicks(7406)
                         });
                 });
 
-            modelBuilder.Entity("DesafioConta.Domain.Accounts.OperationsHistory", b =>
+            modelBuilder.Entity("DesafioConta.Domain.Accounts.CheckingAccount", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal");
-
-                    b.Property<Guid>("CheckingAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Operation")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CheckingAccountId");
-
-                    b.ToTable("OperationsHistory");
-
-                    b.HasData(
-                        new
+                    b.OwnsMany("DesafioConta.Domain.Accounts.OperationsHistory", "OperationsHistory", b1 =>
                         {
-                            Id = new Guid("cb4e2ad7-b88a-497c-b236-0df47d59fe53"),
-                            Amount = 100m,
-                            CheckingAccountId = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
-                            CreationDate = new DateTime(2020, 11, 7, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(1950),
-                            Operation = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("783db41b-b903-4dee-8ac7-5dd54eb62c24"),
-                            Amount = 400m,
-                            CheckingAccountId = new Guid("911d8b02-5732-407b-ac42-201305bacfb3"),
-                            CreationDate = new DateTime(2020, 11, 9, 15, 3, 9, 969, DateTimeKind.Local).AddTicks(2814),
-                            Operation = 0
+                            b1.Property<Guid>("CheckingAccountId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("decimal");
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("Operation")
+                                .HasColumnType("int");
+
+                            b1.HasKey("CheckingAccountId", "Id");
+
+                            b1.ToTable("OperationsHistory");
+
+                            b1.WithOwner("CheckingAccount")
+                                .HasForeignKey("CheckingAccountId");
+
+                            b1.Navigation("CheckingAccount");
                         });
+
+                    b.Navigation("OperationsHistory");
                 });
 
             modelBuilder.Entity("DesafioConta.Domain.Accounts.Customer", b =>
@@ -181,7 +171,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
+                                    CustomerId = new Guid("b17554a5-1434-49df-8e8a-157b8ee96a5b"),
                                     Bairro = "Money",
                                     Cep = "94064340",
                                     Cidade = "Porto Alegre",
@@ -213,7 +203,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
+                                    CustomerId = new Guid("b17554a5-1434-49df-8e8a-157b8ee96a5b"),
                                     Number = "34074230046"
                                 });
                         });
@@ -237,7 +227,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
+                                    CustomerId = new Guid("b17554a5-1434-49df-8e8a-157b8ee96a5b"),
                                     Address = "warren@buffet.com"
                                 });
                         });
@@ -248,11 +238,13 @@ namespace DesafioConta.Infra.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("FirstName")
-                                .HasColumnType("nvarchar(max)")
+                                .IsRequired()
+                                .HasColumnType("varchar(50)")
                                 .HasColumnName("FirstName");
 
                             b1.Property<string>("LastName")
-                                .HasColumnType("nvarchar(max)")
+                                .IsRequired()
+                                .HasColumnType("varchar(50)")
                                 .HasColumnName("LastName");
 
                             b1.HasKey("CustomerId");
@@ -265,7 +257,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("f1b0a055-7723-4113-ba52-f4e96028b68b"),
+                                    CustomerId = new Guid("b17554a5-1434-49df-8e8a-157b8ee96a5b"),
                                     FirstName = "Warren",
                                     LastName = "Buffet"
                                 });
@@ -282,21 +274,9 @@ namespace DesafioConta.Infra.Migrations
                     b.Navigation("Name");
                 });
 
-            modelBuilder.Entity("DesafioConta.Domain.Accounts.OperationsHistory", b =>
-                {
-                    b.HasOne("DesafioConta.Domain.Accounts.CheckingAccount", "CheckingAccount")
-                        .WithMany("OperationsHistory")
-                        .HasForeignKey("CheckingAccountId")
-                        .IsRequired();
-
-                    b.Navigation("CheckingAccount");
-                });
-
             modelBuilder.Entity("DesafioConta.Domain.Accounts.CheckingAccount", b =>
                 {
                     b.Navigation("Customer");
-
-                    b.Navigation("OperationsHistory");
                 });
 #pragma warning restore 612, 618
         }

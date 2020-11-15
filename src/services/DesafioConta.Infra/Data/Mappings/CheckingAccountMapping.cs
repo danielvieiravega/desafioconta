@@ -23,9 +23,22 @@ namespace DesafioConta.Infra.Data.Mappings
 
             builder.Property(e => e.Balance).HasColumnType("decimal");
 
-            builder.HasMany(c => c.OperationsHistory)
-                .WithOne(c => c.CheckingAccount)
-                .HasForeignKey(c => c.CheckingAccountId);
+            //builder.HasMany(c => c.OperationsHistory)
+            //    .WithOne(c => c.CheckingAccount)
+            //    .HasForeignKey(c => c.CheckingAccountId);
+
+            builder.OwnsMany(p => p.OperationsHistory, a =>
+            {
+                //a.WithOwner().HasForeignKey("CheckingAccountId");
+
+                a.ToTable("OperationsHistory");
+
+                //builder.Property(e => e.DateTime).HasColumnType("datetime");
+
+                a.Property(e => e.Amount).HasColumnType("decimal");
+
+                a.Property(e => e.Operation).HasColumnType("int");
+            });
 
             //conta -> cliente
             builder.HasOne(c => c.Customer)
