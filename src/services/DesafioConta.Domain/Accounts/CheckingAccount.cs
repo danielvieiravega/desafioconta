@@ -18,10 +18,8 @@ namespace DesafioConta.Domain.Accounts
         public Customer Customer { get; private set; }
 
         private readonly List<OperationsHistory> _operationsHistory;
-
         public IReadOnlyCollection<OperationsHistory> OperationsHistory => _operationsHistory;
 
-        //construtor do EF
         protected CheckingAccount()
         {
         }
@@ -42,34 +40,48 @@ namespace DesafioConta.Domain.Accounts
         public override void Deposit(decimal amount)
         {
             if (amount < MinDepositAmountValue)
-                throw new DomainException($"The ammount to be deposited must be greater than {MinDepositAmountValue}");
+                throw new DomainException($"The amount to be deposited must be greater than {MinDepositAmountValue}");
 
             if (amount > MaxDepositAmountValue)
-                throw new DomainException($"The ammount to be deposited must be less than {MaxDepositAmountValue}");
+                throw new DomainException($"The amount to be deposited must be less than {MaxDepositAmountValue}");
 
             Balance += amount;
-
             SaveOperation(amount, Operation.Deposit);
         }
 
         public override void WithDraw(decimal amount)
         {
             if (amount < MinWithDrawAmountValue)
-                throw new DomainException($"The ammount to be withdrawn must be greater than {MinWithDrawAmountValue}");
+                throw new DomainException($"The amount to be withdrawn must be greater than {MinWithDrawAmountValue}");
 
             if (amount > NaxWithDrawAmountValue)
-                throw new DomainException($"The ammount to be withdrawn must be less than {NaxWithDrawAmountValue}");
+                throw new DomainException($"The amount to be withdrawn must be less than {NaxWithDrawAmountValue}");
             
-            if (Balance >= amount)
-            {
-                Balance -= amount;
-                SaveOperation(amount, Operation.WithDraw);
-            }
+            if (amount > Balance)
+                throw new DomainException("The amount to be withdrawn must be less then your total balance");
+
+            Balance -= amount;
+            SaveOperation(amount, Operation.WithDraw);
+        }
+
+        public void Remunerate()
+        {
+            decimal remunerationRate = 0.1m;
+            Balance = Balance + (Balance * remunerationRate);
+        }
+
+        public void Pay(decimal amount)
+        {
+            if (amount > Balance)
+                throw new DomainException("The amount to be pay must be less then your total balance");
+
+            Balance -= amount;
+            SaveOperation(amount, Operation.Payment);
         }
 
         private void SaveOperation(decimal amount, Operation operation)
         {
-            _operationsHistory.Add(new OperationsHistory(operation, amount/*, Id*/));
+            _operationsHistory.Add(new OperationsHistory(operation, amount));
         }
     }
 }

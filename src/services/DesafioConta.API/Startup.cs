@@ -1,4 +1,5 @@
 using DesafioConta.API.Configuration;
+using DesafioConta.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,8 @@ namespace DesafioConta.API
             services.AddApiConfiguration(Configuration);
             services.AddSwaggerConfiguration();
             services.RegisterServices();
+
+            //services.AddHostedService<MonetizationService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

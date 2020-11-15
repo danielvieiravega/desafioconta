@@ -1,6 +1,6 @@
 ﻿namespace DesafioConta.API.Controllers.Model
 {
-    public class DepositModel
+    public class AccountModel
     {
         public decimal Amount { get; set; }
     }

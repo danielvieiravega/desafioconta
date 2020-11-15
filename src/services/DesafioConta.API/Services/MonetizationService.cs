@@ -13,7 +13,8 @@ namespace DesafioConta.API.Services
         private readonly ILogger<MonetizationService> _logger;
         private readonly IServiceProvider _serviceProvider;
 
-        private const int MONETIZATION_PERIOD = 30; //A fins de teste, vou deixar 30s ao invés de ser a cada 24 horas
+        //Para que seja vísivel o funcionamento rentabilização vou deixar 30s ao invés de ser a cada 24hrs
+        private const int MonetizationPeriod = 30;
 
         public MonetizationService(ILogger<MonetizationService> logger, IServiceProvider serviceProvider)
         {
@@ -26,17 +27,16 @@ namespace DesafioConta.API.Services
             _logger.LogInformation("Serviço de rentabilização de contas iniciado.");
 
             _timer = new Timer(ProcessAccounts, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(MONETIZATION_PERIOD));
+                TimeSpan.FromSeconds(MonetizationPeriod));
 
             return Task.CompletedTask;
         }
 
         private async void ProcessAccounts(object state)
         {
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                //FAzer aqui a rentabilização da conta
-            }
+            using var scope = _serviceProvider.CreateScope();
+            var accountService = scope.ServiceProvider.GetRequiredService<IAccountService>();
+            await accountService.Monetize();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
