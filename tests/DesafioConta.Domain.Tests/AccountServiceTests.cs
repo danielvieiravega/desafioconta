@@ -55,7 +55,6 @@ namespace DesafioConta.Tests
             Assert.Equal(depositValue, account.Balance);
             Assert.Equal(1, account.OperationsHistory.Count);
             Assert.Equal(Operation.Deposit, account.OperationsHistory.Last().Operation);
-            Assert.Equal(account.Id, account.OperationsHistory.Last().CheckingAccount.Id);
             Assert.Equal(depositValue, account.OperationsHistory.Last().Amount);
         }
 
