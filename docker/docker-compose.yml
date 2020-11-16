@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+
+    sql-server:
+        image: mcr.microsoft.com/mssql/server
+        container_name: nerdstore-sql-server
+        build: 
+            context: ../sql
+            dockerfile: ./Dockerfile
+        environment:
+            SA_PASSWORD: "MeuDB@123"
+            ACCEPT_EULA: "Y"  
+    
+    web-mvc:
+        container_name: desafio-conta-web-mvc
+        build:
+            context: ../src
+            dockerfile: ./web/DesafioConta.WebApp.MVC/Dockerfile
+        restart: always            
+        environment:    
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://*:5001     
+        depends_on:
+            - api-desafio-conta
+    
+    api-desafio-conta:
+        container_name: desafio-conta-api
+        build: 
+            context: ../src
+            dockerfile: ./services/DesafioConta.API/Dockerfile
+        restart: always 
+        environment: 
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:5401;http://+5402
+        depends_on:
+            - sql-server                

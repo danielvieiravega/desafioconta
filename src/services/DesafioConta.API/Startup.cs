@@ -23,7 +23,6 @@ namespace DesafioConta.API
             services.RegisterServices();
             services.AddHealthChecks();
             services.AddHostedService<MonetizationService>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -11,7 +11,7 @@ namespace DesafioConta.Infra.Boleto
     {
         public decimal GetChargeAmount(string code)
         {
-            code = CleanCode(code);
+            code = CleanBoletoCode(code);
             if (!IsValidCode(code))
                 throw new System.Exception("Invalid Boleto code");
 
@@ -38,7 +38,7 @@ namespace DesafioConta.Infra.Boleto
             return false;
         }
 
-        private static string CleanCode(string code)
+        private static string CleanBoletoCode(string code)
         {
             code = code.Replace(".", "").Replace(" ", "").Trim();
             return code;

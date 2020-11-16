@@ -7,10 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/services/DesafioConta.API/DesafioConta.API.csproj", "src/services/DesafioConta.API/"]
-RUN dotnet restore "src/services/DesafioConta.API/DesafioConta.API.csproj"
+COPY ["./services/DesafioConta.API/DesafioConta.API.csproj", "services/DesafioConta.API/"]
+COPY ["./building blocks/DesafioConta.Core/DesafioConta.Core.csproj", "building blocks/DesafioConta.Core/"]
+COPY ["./building blocks/DesafioConta.WebAPI.Core/DesafioConta.WebAPI.Core.csproj", "building blocks/DesafioConta.Core/"]
+
+RUN dotnet restore "services/DesafioConta.API/DesafioConta.API.csproj"
 COPY . .
-WORKDIR "/src/src/services/DesafioConta.API"
+WORKDIR "services/DesafioConta.API"
 RUN dotnet build "DesafioConta.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

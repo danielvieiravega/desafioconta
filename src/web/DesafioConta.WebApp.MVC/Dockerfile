@@ -7,16 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["src/web/DesafioConta.Web/DesafioConta.Web.csproj", "src/web/DesafioConta.Web/"]
-RUN dotnet restore "src/web/DesafioConta.Web/DesafioConta.Web.csproj"
+COPY ["./web/DesafioConta.WebApp.MVC/DesafioConta.WebApp.MVC.csproj", "web/DesafioConta.WebApp.MVC/"]
+RUN dotnet restore "web/DesafioConta.WebApp.MVC/DesafioConta.WebApp.MVC.csproj"
+
 COPY . .
-WORKDIR "/src/src/web/DesafioConta.Web"
-RUN dotnet build "DesafioConta.Web.csproj" -c Release -o /app/build
+WORKDIR "web/DesafioConta.WebApp.MVC"
+RUN dotnet build "DesafioConta.WebApp.MVC.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DesafioConta.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "DesafioConta.WebApp.MVC.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DesafioConta.Web.dll"]
+ENTRYPOINT ["dotnet", "DesafioConta.WebApp.MVC.dll"]

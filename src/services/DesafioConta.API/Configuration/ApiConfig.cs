@@ -1,4 +1,5 @@
-﻿using DesafioConta.Infra.Data;
+﻿using DesafioConta.API.Extensions;
+using DesafioConta.Infra.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,10 @@ namespace DesafioConta.API.Configuration
             services.AddDbContext<CheckingAccountsContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers();
+            services.AddControllers(config =>
+            {
+                config.Filters.Add(typeof(GlobalExceptionFilter));
+            });
         }
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)

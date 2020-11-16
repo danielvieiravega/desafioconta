@@ -19,7 +19,6 @@ namespace DesafioConta.WebApp.MVC.Extensions
             var jitterer = new Random();
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .OrResult(msg => msg.RequestMessage.Method != HttpMethod.Get && msg.StatusCode == System.Net.HttpStatusCode.NotFound)
                 .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)) + TimeSpan.FromMilliseconds(jitterer.Next(0, 100)));
         }
     }

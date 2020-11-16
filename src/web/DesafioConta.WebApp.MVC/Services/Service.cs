@@ -1,4 +1,5 @@
 ﻿using DesafioConta.WebApp.MVC.Extensions;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -37,7 +38,7 @@ namespace DesafioConta.WebApp.MVC.Services
                     throw new CustomHttpRequestException(response.StatusCode);
 
                 case 400:
-                    return false;
+                    throw new InvalidOperationException(response.StatusCode.ToString());
             }
 
             response.EnsureSuccessStatusCode();

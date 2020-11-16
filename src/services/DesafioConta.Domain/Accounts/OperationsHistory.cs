@@ -6,7 +6,7 @@ namespace DesafioConta.Domain.Accounts
     {
         public Operation Operation { get; private set; }
         public decimal Amount { get; private set; }
-        public CheckingAccount CheckingAccount { get; set; }
+        public CheckingAccount CheckingAccount { get; private set; }
 
         protected OperationsHistory() { }
 

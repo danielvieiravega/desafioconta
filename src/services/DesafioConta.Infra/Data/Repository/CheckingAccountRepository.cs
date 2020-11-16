@@ -58,7 +58,7 @@ namespace DesafioConta.Infra.Data
                 .CheckingAccounts
                 .Include(c => c.Customer)
                 .Include(h => h.OperationsHistory)
-                .FirstAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public void Update(CheckingAccount account)

@@ -1,4 +1,5 @@
-﻿@using DesafioConta.WebApp.MVC.Models
+﻿@using DesafioConta.WebApp.MVC.Extensions
+@using DesafioConta.WebApp.MVC.Models
 @model AcountViewModel
 
 @{
@@ -11,12 +12,12 @@
             <div class="row">
                 <div>
                     <h1 class="text-success">Visão Geral</h1>
-                    <h1>R$ @Model.Balance.ToString("#.00")</h1>
+                    <h1>@string.Format("{0:C}", Model.Balance)</h1>
                 </div>
             </div>
             <div class="row">
                 <div>
-                    <h6>Rendimento: R$ @Model.Yield.ToString("#.00")</h6>
+                    <h6>Rendimento: @string.Format("{0:C}", Model.Yield)</h6>
                 </div>
             </div>
         </div>
@@ -34,8 +35,8 @@
                         foreach (var history in Model.OperationsHistory.OrderByDescending(h => h.DateTime).Take(10))
                         {
                             <tr>
-                                <td>@history.Operation.ToString()</td>
-                                <td>R$ @history.Amount.ToString("#.00")</td>
+                                <td>@history.Operation.DescriptionAttribute()</td>
+                                <td>@string.Format("{0:C}", history.Amount)</td>
                             </tr>
                         }
                     }
@@ -64,7 +65,7 @@
                     <form asp-action="Deposit" asp-controller="Home" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Valor</label>
-                            <input asp-for="OperationAmount" class="form-control" id="deposito-input" placeholder="Digite o valor">
+                            <input asp-for="OperationAmount" class="form-control" id="deposito-input" placeholder="100,00">
                         </div>
                         <button type="submit" class="btn btn-primary">Confirmar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -112,7 +113,7 @@
                     <form asp-action="Pay" asp-controller="Home" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Código do boleto</label>
-                            <input asp-for="BoletoCode" type="text" class="form-control" id="pagar-input" placeholder="Digite o código do boleto">
+                            <input asp-for="BoletoCode" type="text" required class="form-control" id="pagar-input" placeholder="Digite o código do boleto">
                         </div>
                         <button type="submit" class="btn btn-primary">Confirmar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -131,24 +132,41 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <h5>Operação realizada com sucesso!!</h5>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+
+                @if (Model.WasSuccessfullOperation)
+                {
+                    <div class="modal-body alert alert-success">
+                        <h5>Operação realizada com sucesso!!</h5>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="modal-body alert alert-danger">
+                        <h5>Operação realizada com falha, tente novamente</h5>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                }
             </div>
         </div>
     </div>
 
 </div>
 
-
 @section Scripts
 {
-    @if (Model.ShowSuccessOperation)
+    @if (Model.ShowOperationModal)
     {
         <script>
             $('#modal-sucesso').modal();
         </script>
     }
-    @*show failure operation*@
+<script>
+    $("#deposito-input").on("input", function () {
+        // allow numbers, a comma or a dot
+        var v = $(this).val(), vc = v.replace(/[^0-9,\.]/, '');
+        if (v !== vc)
+            $(this).val(vc);
+    });
+</script>
 }

@@ -14,7 +14,6 @@ namespace DesafioConta.Domain.Accounts
 
         protected Customer()
         {
-
         }
 
         public Customer(Name name, Cpf cpf, Address address, Guid checkingAccountId)

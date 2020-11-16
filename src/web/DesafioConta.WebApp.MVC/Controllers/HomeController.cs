@@ -23,11 +23,17 @@ namespace DesafioConta.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var accountSummary = await _accountService.GetSummary(_defaultAccount);
-            if (TempData["showSuccess"] != null)
+            if (TempData["ShowOperationModal"] != null)
             {
-                //bool value = TempData["showSuccess"] as bool;
-
-                accountSummary.ShowSuccessOperation = true;
+                var showSuccess = TempData["ShowSuccess"] as bool?;
+                if (showSuccess.HasValue)
+                {
+                    accountSummary.ShowOperationModal = true;
+                    if (showSuccess.Value)
+                        accountSummary.WasSuccessfullOperation = true;
+                    else
+                        accountSummary.WasSuccessfullOperation = false;
+                }
             }
             return View("Index", accountSummary);
         }
@@ -38,13 +44,14 @@ namespace DesafioConta.Web.Controllers
             try
             {
                 await _accountService.Deposit(_defaultAccount, model.OperationAmount);
-                TempData["showSuccess"] = true;
+                TempData["ShowSuccess"] = true;
             }
             catch (Exception)
             {
-                TempData["showSuccess"] = false;
+                TempData["ShowSuccess"] = false;
             }
-            
+
+            TempData["ShowOperationModal"] = true;
 
             return RedirectToAction("Index","Home");
         }
@@ -55,12 +62,14 @@ namespace DesafioConta.Web.Controllers
             try
             {
                 await _accountService.Withdraw(_defaultAccount, model.OperationAmount);
-                TempData["showSuccess"] = true;
+                TempData["ShowSuccess"] = true;
             }
             catch (Exception)
             {
-                TempData["showSuccess"] = false;
+                TempData["ShowSuccess"] = false;
             }
+
+            TempData["ShowOperationModal"] = true;
 
             return RedirectToAction("Index", "Home");
         }
@@ -68,17 +77,17 @@ namespace DesafioConta.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Pay(AcountViewModel model)
         {
-            var showSucccess = false;
-
             try
             {
                 await _accountService.Pay(_defaultAccount, model.BoletoCode);
-                showSucccess = true;
-
+                TempData["ShowSuccess"] = true;
             }
             catch (Exception)
             {
+                TempData["ShowSuccess"] = false;
             }
+
+            TempData["ShowOperationModal"] = true;
 
             return RedirectToAction("Index", "Home");
         }

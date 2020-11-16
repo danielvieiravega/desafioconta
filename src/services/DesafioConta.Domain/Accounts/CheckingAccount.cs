@@ -7,10 +7,15 @@ namespace DesafioConta.Domain.Accounts
     public class CheckingAccount : Account
     {
         public const decimal MinDepositAmountValue = 5;
-        public const decimal MaxDepositAmountValue = 100000;
+        public const decimal MaxDepositAmountValue = 100005;
 
         public const decimal MinWithDrawAmountValue = 10;
-        public const decimal NaxWithDrawAmountValue = 100000;
+        public const decimal MaxWithDrawAmountValue = 100010;
+
+        public const decimal MinPaymentAmountValue = 15;
+        public const decimal MaxPaymentAmountValue = 100015;
+        
+        public const decimal DailyRemunerationRate = 0.0000747m; //Taxa selic no dia 16/11
 
         public int Agency { get; private set; }
         public int Number { get; private set; }
@@ -25,8 +30,8 @@ namespace DesafioConta.Domain.Accounts
 
         public CheckingAccount(int number)
         {
-            if (number < 0)
-                throw new DomainException("number should be greather than 0");
+            if (number < 1)
+                throw new DomainException("number should be greather than 1");
 
             Agency = 1;
             Number = number;
@@ -53,8 +58,8 @@ namespace DesafioConta.Domain.Accounts
             if (amount < MinWithDrawAmountValue)
                 throw new DomainException($"The amount to be withdrawn must be greater than {MinWithDrawAmountValue}");
 
-            if (amount > NaxWithDrawAmountValue)
-                throw new DomainException($"The amount to be withdrawn must be less than {NaxWithDrawAmountValue}");
+            if (amount > MaxWithDrawAmountValue)
+                throw new DomainException($"The amount to be withdrawn must be less than {MaxWithDrawAmountValue}");
             
             if (amount > Balance)
                 throw new DomainException("The amount to be withdrawn must be less then your total balance");
@@ -65,8 +70,7 @@ namespace DesafioConta.Domain.Accounts
 
         public void Remunerate()
         {
-            decimal remunerationRate = 0.1m; //10% ao dia :P
-            var yield = (Balance * remunerationRate);
+            var yield = (Balance * DailyRemunerationRate);
             Balance += yield;
             Yield += yield;
         }
