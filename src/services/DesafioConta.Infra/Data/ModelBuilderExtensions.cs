@@ -1,6 +1,8 @@
 ﻿using DesafioConta.Domain.Accounts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DesafioConta.Infra.Data
 {
@@ -9,45 +11,25 @@ namespace DesafioConta.Infra.Data
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var customerId = Guid.NewGuid();
-            var checkingAccountId = Guid.NewGuid();
+            var checkingAccountId = Guid.Parse("A0ECF33E-4FFC-49F5-848C-B17E8377573E");
 
             modelBuilder.Entity<CheckingAccount>().HasData(
                 new
                 {
                     Id = checkingAccountId,
                     Balance = (decimal)0,
+                    Yield = (decimal)0,
                     Agency = 1,
                     Number = 1,
                     CreationDate = DateTime.Now.AddDays(-15),
-                    LastMonetization = DateTime.Now.AddDays(-15)
-
+                    LastMonetization = DateTime.Now.AddDays(-15),
+                    Deleted = false
                 }
                 );
 
-
-            //modelBuilder.Entity<OperationsHistory>().HasData(
-            //    new
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        CheckingAccountId = checkingAccountId,
-            //        Operation = Operation.Deposit,
-            //        Amount = (decimal) 100.0,
-            //        CreationDate = DateTime.Now.AddDays(-7)
-            //    },
-            //    new
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        CheckingAccountId = checkingAccountId,
-            //        Operation = Operation.Deposit,
-            //        Amount = (decimal) 400.0,
-            //        CreationDate = DateTime.Now.AddDays(-5)
-            //    }
-            //    );
-
-
             modelBuilder.Entity<Customer>(c =>
             {
-                c.HasData(new { Id = customerId, CheckingAccountId = checkingAccountId, CreationDate = DateTime.Now });
+                c.HasData(new { Id = customerId, CheckingAccountId = checkingAccountId, CreationDate = DateTime.Now, Deleted = false });
 
                 c.OwnsOne(e => e.Address).HasData(
                     new
@@ -60,7 +42,6 @@ namespace DesafioConta.Infra.Data
                         Cep = "94064340",
                         Cidade = "Porto Alegre",
                         Estado = "RS"
-
                     });
 
                 c.OwnsOne(e => e.Cpf).HasData(

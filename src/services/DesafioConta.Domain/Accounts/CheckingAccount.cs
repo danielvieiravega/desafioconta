@@ -16,13 +16,12 @@ namespace DesafioConta.Domain.Accounts
         public int Number { get; private set; }
         public DateTime LastMonetization { get; private set; }
         public Customer Customer { get; private set; }
+        public decimal Yield { get; protected set; }
 
         private readonly List<OperationsHistory> _operationsHistory;
         public IReadOnlyCollection<OperationsHistory> OperationsHistory => _operationsHistory;
 
-        protected CheckingAccount()
-        {
-        }
+        protected CheckingAccount(){}
 
         public CheckingAccount(int number)
         {
@@ -32,8 +31,8 @@ namespace DesafioConta.Domain.Accounts
             Agency = 1;
             Number = number;
             Balance = 0;
+            Yield = 0;
             LastMonetization = DateTime.Now;
-
             _operationsHistory = new List<OperationsHistory>();
         }
 
@@ -61,13 +60,15 @@ namespace DesafioConta.Domain.Accounts
                 throw new DomainException("The amount to be withdrawn must be less then your total balance");
 
             Balance -= amount;
-            SaveOperation(amount, Operation.WithDraw);
+            SaveOperation(amount, Operation.Withdraw);
         }
 
         public void Remunerate()
         {
-            decimal remunerationRate = 0.1m;
-            Balance = Balance + (Balance * remunerationRate);
+            decimal remunerationRate = 0.1m; //10% ao dia :P
+            var yield = (Balance * remunerationRate);
+            Balance += yield;
+            Yield += yield;
         }
 
         public void Pay(decimal amount)

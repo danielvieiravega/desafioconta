@@ -4,14 +4,16 @@ using DesafioConta.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioConta.Infra.Migrations
 {
     [DbContext(typeof(CheckingAccountsContext))]
-    partial class CheckingAccountsContextModelSnapshot : ModelSnapshot
+    [Migration("20201115142605_AdjustBalancePrecision")]
+    partial class AdjustBalancePrecision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,19 +38,12 @@ namespace DesafioConta.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("LastMonetization")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Number")
                         .HasColumnType("int")
                         .HasColumnName("Number");
-
-                    b.Property<decimal>("Yield")
-                        .HasPrecision(16, 3)
-                        .HasColumnType("decimal(16,3)");
 
                     b.HasKey("Id");
 
@@ -60,11 +55,9 @@ namespace DesafioConta.Infra.Migrations
                             Id = new Guid("a0ecf33e-4ffc-49f5-848c-b17e8377573e"),
                             Agency = 1,
                             Balance = 0m,
-                            CreationDate = new DateTime(2020, 10, 31, 22, 36, 11, 666, DateTimeKind.Local).AddTicks(5885),
-                            Deleted = false,
-                            LastMonetization = new DateTime(2020, 10, 31, 22, 36, 11, 667, DateTimeKind.Local).AddTicks(3512),
-                            Number = 1,
-                            Yield = 0m
+                            CreationDate = new DateTime(2020, 10, 31, 11, 26, 4, 573, DateTimeKind.Local).AddTicks(1460),
+                            LastMonetization = new DateTime(2020, 10, 31, 11, 26, 4, 573, DateTimeKind.Local).AddTicks(9884),
+                            Number = 1
                         });
                 });
 
@@ -80,9 +73,6 @@ namespace DesafioConta.Infra.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CheckingAccountId")
@@ -93,10 +83,9 @@ namespace DesafioConta.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e579a8b0-a653-42fe-9bb3-8b20f82a8b38"),
+                            Id = new Guid("1c72588b-0849-4389-b97a-4d0e183617f5"),
                             CheckingAccountId = new Guid("a0ecf33e-4ffc-49f5-848c-b17e8377573e"),
-                            CreationDate = new DateTime(2020, 11, 15, 22, 36, 11, 668, DateTimeKind.Local).AddTicks(9804),
-                            Deleted = false
+                            CreationDate = new DateTime(2020, 11, 15, 11, 26, 4, 576, DateTimeKind.Local).AddTicks(1211)
                         });
                 });
 
@@ -112,14 +101,10 @@ namespace DesafioConta.Infra.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<decimal>("Amount")
-                                .HasPrecision(16, 3)
-                                .HasColumnType("decimal(16,3)");
+                                .HasColumnType("decimal");
 
                             b1.Property<DateTime>("CreationDate")
                                 .HasColumnType("datetime2");
-
-                            b1.Property<bool>("Deleted")
-                                .HasColumnType("bit");
 
                             b1.Property<int>("Operation")
                                 .HasColumnType("int");
@@ -187,7 +172,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("e579a8b0-a653-42fe-9bb3-8b20f82a8b38"),
+                                    CustomerId = new Guid("1c72588b-0849-4389-b97a-4d0e183617f5"),
                                     Bairro = "Money",
                                     Cep = "94064340",
                                     Cidade = "Porto Alegre",
@@ -219,7 +204,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("e579a8b0-a653-42fe-9bb3-8b20f82a8b38"),
+                                    CustomerId = new Guid("1c72588b-0849-4389-b97a-4d0e183617f5"),
                                     Number = "34074230046"
                                 });
                         });
@@ -243,7 +228,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("e579a8b0-a653-42fe-9bb3-8b20f82a8b38"),
+                                    CustomerId = new Guid("1c72588b-0849-4389-b97a-4d0e183617f5"),
                                     Address = "warren@buffet.com"
                                 });
                         });
@@ -273,7 +258,7 @@ namespace DesafioConta.Infra.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    CustomerId = new Guid("e579a8b0-a653-42fe-9bb3-8b20f82a8b38"),
+                                    CustomerId = new Guid("1c72588b-0849-4389-b97a-4d0e183617f5"),
                                     FirstName = "Warren",
                                     LastName = "Buffet"
                                 });

@@ -21,8 +21,9 @@ namespace DesafioConta.API
             services.AddApiConfiguration(Configuration);
             services.AddSwaggerConfiguration();
             services.RegisterServices();
+            services.AddHealthChecks();
+            services.AddHostedService<MonetizationService>();
 
-            //services.AddHostedService<MonetizationService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

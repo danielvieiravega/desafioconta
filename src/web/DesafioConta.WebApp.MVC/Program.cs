@@ -1,11 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DesafioConta.Web
 {
@@ -21,6 +16,13 @@ namespace DesafioConta.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var env = hostingContext.HostingEnvironment;
+                    config.SetBasePath(env.ContentRootPath)
+                    .AddJsonFile("AppSettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"AppSettings.{env.EnvironmentName}.json", optional: true);
                 });
     }
 }

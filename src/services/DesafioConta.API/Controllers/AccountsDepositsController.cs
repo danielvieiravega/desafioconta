@@ -1,19 +1,13 @@
 ﻿using DesafioConta.API.Controllers.Model;
 using DesafioConta.API.Services;
-using DesafioConta.Domain.Accounts;
 using DesafioConta.WebAPI.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace DesafioConta.API.Controllers
 {
-
-
-
-
     [Route("api/accounts/{id}/deposits")]
     public class AccountsDepositsController : MainController
     {

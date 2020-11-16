@@ -1,7 +1,6 @@
 ﻿using DesafioConta.Domain.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace DesafioConta.Infra.Data.Mappings
 {
@@ -21,26 +20,30 @@ namespace DesafioConta.Infra.Data.Mappings
                .IsRequired()
                .HasColumnName("Number");
 
-            builder.Property(e => e.Balance).HasColumnType("decimal");
+            builder.Property(e => e.Balance)
+               .IsRequired()
+                .HasColumnType("decimal")
+                .HasPrecision(16, 3);
 
-            //builder.HasMany(c => c.OperationsHistory)
-            //    .WithOne(c => c.CheckingAccount)
-            //    .HasForeignKey(c => c.CheckingAccountId);
+            builder.Property(e => e.Yield)
+               .IsRequired()
+                .HasColumnType("decimal")
+                .HasPrecision(16, 3);
 
             builder.OwnsMany(p => p.OperationsHistory, a =>
             {
-                //a.WithOwner().HasForeignKey("CheckingAccountId");
-
                 a.ToTable("OperationsHistory");
 
-                //builder.Property(e => e.DateTime).HasColumnType("datetime");
+                a.Property(e => e.Amount)
+                .IsRequired()
+                .HasColumnType("decimal")
+                .HasPrecision(16, 3);
 
-                a.Property(e => e.Amount).HasColumnType("decimal");
-
-                a.Property(e => e.Operation).HasColumnType("int");
+                a.Property(e => e.Operation)
+                .IsRequired()
+                .HasColumnType("int");
             });
 
-            //conta -> cliente
             builder.HasOne(c => c.Customer)
                 .WithOne(c => c.CheckingAccount);
         }
