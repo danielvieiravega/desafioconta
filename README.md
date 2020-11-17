@@ -12,11 +12,13 @@ Essas operações são possíveis de serem realizadas através do frontend que t
 
 Para que seja possível ver que a remuneração está funcionando corretamente, defini no *IHostedService* implementado no [MonetizationService.cs](https://gitlab.com/danielvieiravega/desafioconta/-/blob/master/src/services/DesafioConta.API/Services/MonetizationService.cs) que a remuneração é feita a **cada 30 segundos** e não a cada **24 horas**.
 
+## Debugando no Visual Studio
 Para que seja possível testar no Visual Studio é necessário seguir os seguintes passos:
   - Na propriedade da solution, definir como **Multiple startup projects** os projetos **DesafioConta.API** e **DesafioConta.WebApp.MVC**
   - Executar o comando **update-database** a partir do **Package Manager Console** sendo definido como **Default Project** o projeto **DesafioConta.Infra**
-  - Deixei criada a classe *ModelBuilderExtensions* que faz o seed do banco de dados com as informações que são utilizadas para testes. 
+  - Deixei criada a classe [ModelBuilderExtensions.cs](https://gitlab.com/danielvieiravega/desafioconta/-/blob/master/src/services/DesafioConta.Infra/Data/ModelBuilderExtensions.cs) que faz o seed do banco de dados com as informações que são utilizadas para testes. 
 
+## Rodando no Docker
 Para rodar a aplicação sem usar o Visual Studio disponibilizei um [docker-compose.yml](https://gitlab.com/danielvieiravega/desafioconta/-/blob/master/docker/docker-compose.yml) que sobe toda a infra necessária e código para que a aplicação funcione independentemente no Docker.
 Acessar a pasta docker e executar:
 ```sh
@@ -30,4 +32,6 @@ Executando esse comando, irá subir 4 containers:
 
 Só acessar o navegador no https://localhost/ (acesso através do proxy) ou http://localhost:5001/ (acesso direto ao container mvc). Obs.: Deixei exposta as portas de todos os containers para poderem serem acessadas diretamente. Se fosse um ambiente de produção, somente o container de nginx teria as portas 80 e 443 expostas para o mundo e o restante dos outros containers conversariam entre si através da rede privada do próprio docker.
 
-Foi configurado o swagger na API. Para usar só acessar endereco_api/swagger
+Foi configurado o swagger na API. Para usar e testar os endpoints da API só acessar:
+ -  https://localhost:5011/swagger (se rodando no Docker) 
+ - https://localhost:44344/swagger (se debugando no Visual Studio)
