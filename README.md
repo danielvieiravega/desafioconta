@@ -30,6 +30,8 @@ Executando esse comando, irá subir 4 containers:
   - o SQL Server já com dados cadastrados  (localhost:1433)
   - o frontend MVC (localhost:5001)
   - e proxy ngnix que fica a frente do MVC (localhost:80 e localhost:443)
+  
+Pelo fato do certificado ser auto-assinado, na hora de acessar pelo navegador vai dar erro que a conexão não é privada (ERR_CERT_AUTHORITY_INVALID), só ignorar e acessar. 
 
 Só acessar o navegador no https://localhost/ (acesso através do proxy) ou http://localhost:5001/ (acesso direto ao container mvc). Obs.: Deixei exposta as portas de todos os containers para poderem serem acessadas diretamente. Se fosse um ambiente de produção, somente o container de nginx teria as portas 80 e 443 expostas para o mundo e o restante dos outros containers conversariam entre si através da rede privada do próprio docker.
 
