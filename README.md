@@ -20,8 +20,9 @@ Para que seja possível testar no Visual Studio é necessário seguir os seguint
 
 ## Rodando no Docker
 Para rodar a aplicação sem usar o Visual Studio disponibilizei um [docker-compose.yml](https://gitlab.com/danielvieiravega/desafioconta/-/blob/master/docker/docker-compose.yml) que sobe toda a infra necessária e código para que a aplicação funcione independentemente no Docker.
-Acessar a pasta docker e executar:
+Acessar a pasta docker e executar o docker-compose:
 ```sh
+$ cd docker/
 $ docker-compose up
 ```
 Executando esse comando, irá subir 4 containers:
