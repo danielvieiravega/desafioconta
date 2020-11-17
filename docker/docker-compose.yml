@@ -15,6 +15,7 @@ services:
             - "1433:1433"
 
     api-desafio-conta:
+        #image: registrydvv.azurecr.io/api-desafio-conta
         container_name: desafio-conta-api
         build: 
             context: ../src
@@ -33,6 +34,7 @@ services:
             - "5011:5011"
 
     web-mvc:
+        #image: registrydvv.azurecr.io/web-mvc
         container_name: web-mvc
         build:
             context: ../src
@@ -49,6 +51,7 @@ services:
             - "5001:5001"
             
     desafio-conta-proxy:
+        #image: registrydvv.azurecr.io/desafio-conta-proxy  
         container_name: desafio-conta-proxy    
         build: 
             context: ./
