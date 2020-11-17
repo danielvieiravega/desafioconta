@@ -20,13 +20,15 @@ Para que seja possível testar no Visual Studio é necessário seguir os seguint
 Para rodar a aplicação sem usar o Visual Studio disponibilizei um arquivo de *docker-compose* que sobe toda a infra necessária e código para que a aplicação funcione independentemente no Docker.
 Acessar a pasta docker e executar:
 ```sh
-$ docker-compose up -d
+$ docker-compose up
 ```
 Executando esse comando, irá subir 4 containers:
   - a API (localhost:5011)
   - o SQL Server já com dados cadastrados  (localhost:1433)
   - o frontend MVC (localhost:5001)
-  - e proxy gnix que fica a frente do MVC (localhost:80 e localhost:443)
+  - e proxy ngnix que fica a frente do MVC (localhost:80 e localhost:443)
 
-Só acessar o navegador no https://localhost/ (acesso através do proxy) ou http://localhost:5001/ (acesso direto ao container mvc). Obs.: Deixei exposta as portas de todos os containers para poderem serem acessadas diretamente. Se fosse um ambiente de produção, somente o container de nginx teria as portas 80 e 443 expostas para o mundo e o restante dos outros containers conversariam entre si através da rede privada do docker.
+Só acessar o navegador no https://localhost/ (acesso através do proxy) ou http://localhost:5001/ (acesso direto ao container mvc). Obs.: Deixei exposta as portas de todos os containers para poderem serem acessadas diretamente. Se fosse um ambiente de produção, somente o container de nginx teria as portas 80 e 443 expostas para o mundo e o restante dos outros containers conversariam entre si através da rede privada do próprio docker.
+
+
 
