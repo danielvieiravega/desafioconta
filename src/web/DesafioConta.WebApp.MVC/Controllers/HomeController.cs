@@ -17,6 +17,7 @@ namespace DesafioConta.Web.Controllers
         {
             _logger = logger;
             _accountService = accountService;
+            //Essa é a conta default cadastrada no banco
             _defaultAccount = Guid.Parse("a0ecf33e-4ffc-49f5-848c-b17e8377573e");
         }
 

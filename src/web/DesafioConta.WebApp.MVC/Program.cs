@@ -16,14 +16,6 @@ namespace DesafioConta.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    var env = hostingContext.HostingEnvironment;
-                    config.SetBasePath(env.ContentRootPath)
-                    .AddJsonFile("AppSettings.json", true, true)
-                    .AddJsonFile($"AppSettings.{env.EnvironmentName}.json", true, true)
-                    .AddEnvironmentVariables();
                 });
     }
 }
