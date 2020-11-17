@@ -21,8 +21,9 @@ namespace DesafioConta.Web
                 {
                     var env = hostingContext.HostingEnvironment;
                     config.SetBasePath(env.ContentRootPath)
-                    .AddJsonFile("AppSettings.json", optional: false, reloadOnChange: true)
-                    .AddJsonFile($"AppSettings.{env.EnvironmentName}.json", optional: true);
+                    .AddJsonFile("AppSettings.json", true, true)
+                    .AddJsonFile($"AppSettings.{env.EnvironmentName}.json", true, true)
+                    .AddEnvironmentVariables();
                 });
     }
 }

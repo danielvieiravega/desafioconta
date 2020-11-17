@@ -1,7 +1,9 @@
 using DesafioConta.WebApp.MVC.Extensions;
 using DesafioConta.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,16 +26,29 @@ namespace DesafioConta.Web
         {
             services.AddControllersWithViews();
 
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(@"/var/data_protection_keys/"))
+                .SetApplicationName("NerdStoreEnterprise");
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             services.Configure<AppSettings>(Configuration);
 
             services.AddHttpClient<IAccountService, AccountService>()
                     .SetHandlerLifetime(TimeSpan.FromMinutes(5))
                     .AddPolicyHandler(PollyExtensions.GetRetryPolicy())
-                    .AddPolicyHandler(PollyExtensions.GetCircuitBreakerPolicy());
+                    .AddPolicyHandler(PollyExtensions.GetCircuitBreakerPolicy())
+                    .AllowSelfSignedCertificate();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseForwardedHeaders();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

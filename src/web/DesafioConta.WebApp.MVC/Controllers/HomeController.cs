@@ -17,7 +17,7 @@ namespace DesafioConta.Web.Controllers
         {
             _logger = logger;
             _accountService = accountService;
-            _defaultAccount = Guid.Parse("A0ECF33E-4FFC-49F5-848C-B17E8377573E");
+            _defaultAccount = Guid.Parse("a0ecf33e-4ffc-49f5-848c-b17e8377573e");
         }
 
         public async Task<IActionResult> Index()
