@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\services\DesafioConta.API\DesafioConta.API.csproj" />
-    <ProjectReference Include="..\..\src\services\DesafioConta.Domain\DesafioConta.Domain.csproj" />
+    <ProjectReference Include="..\DesafioConta.API\DesafioConta.API.csproj" />
+    <ProjectReference Include="..\DesafioConta.Domain\DesafioConta.Domain.csproj" />
   </ItemGroup>
 
 </Project>
